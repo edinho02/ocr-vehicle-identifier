@@ -4,13 +4,15 @@ import cv2
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
-readImg = cv2.imread('./1.png')
+readImg = cv2.imread('./crops/0.jpg')
 # readImg = cv2.imread('./placa.jpg')
 img = cv2.cvtColor(readImg, cv2.COLOR_RGB2GRAY)
 
 cv2.imwrite('./out/t.jpg', img)
 
-_, finalImg = cv2.threshold(img, 50, 255, cv2.THRESH_BINARY) # melhor 1°
+_, fImg = cv2.threshold(img, 90, 255, cv2.THRESH_BINARY) # melhor 1°
+finalImg = cv2.bilateralFilter(fImg, 11, 17, 17) # filtro de ruido
+
 finalAdT = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 13, 32) # melhor 2°
 finalAdTG = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 61, 2) # melhor 3°
 
