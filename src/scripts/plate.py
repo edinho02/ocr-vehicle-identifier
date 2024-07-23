@@ -91,7 +91,7 @@ def readPlate(platePath):
     return _readImagesText(plates)
 
 def getOriginalPlateName(fileName):
-    return fileName.split('.')[0]
+    return fileName.split('.')[0].split('_')[0]
 
 def calcPrecision(baseTextStr, textStr):
     baseText = [*baseTextStr]
